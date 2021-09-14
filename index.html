@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <title>Rodrigo Cespedes - 45185</title>
+    <style>
+        body{
+            background-color: cornflowerblue;
+            color:white;
+        }
+        table thead{
+            background-color: #302b63;
+            color: white;
+        }
+    </style>
+  </head>
+  <body>
+  	 <div class="inner">
+  	 	<center>
+  	 		<h1>Rodrigo Cespedes - 45185</h1>
+  	 		<img src= './pokedex.png' </img>
+  	 		<p>En el mundo Pokemon cada entrenador cuenta con 6 pokemones para enfrentarse a los obstáculos que pueda encontrar</p>
+            <p>A continuación, su equipo random de 6 pokemones</p>
+        </center>
+ </div>
+    <div class="container mt-4 shadow-lg p3 mb-5 bg-body rounded">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>POKEMON ID</th>
+                    <th>NOMBRE</th>
+                    <th>IMAGEN</th>
+                </tr>
+            </thead>
+            <tbody id="data">
+            </tbody>
+
+        </table>
+
+    </div>
+	<div>
+		<center>
+			<p>¡Adelante! ¡La aventura lo espera!</p>
+			<p>Los datos provienen de la API pokeapi.co y los sprites de la base de datos de imágenes de img.pokemondb.net</p>
+			<p>PD: Si no le gusta su equipo puede presionar el siguiente botón para cambiarlo hasta quedar conforme</p>
+			<button type="button" class="btn btn-primary" onClick="refreshPage()">Cambiar Equipo</button>
+		</center>	
+	</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    <script>
+        var body = '';
+        let url = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=809'
+       	fetch(url)
+            .then(response => response.json())
+            .then(data => mostrarData(data))
+           .catch(error => console.log(error))
+        
+        const mostrarData = (data) => {
+                    console.log(data)
+                    for (let i = 0; i<6; i++){
+                    	let ran = parseInt(Math.random()*809);
+                    	let image = "https://img.pokemondb.net/sprites/bank/normal/"+data.results[ran].name+".png";
+                        body += `<tr><td>${ran+1}</td><td>${data.results[ran].name}</td><td><img src=${image}></img></td></tr>`                
+                    }
+                    document.getElementById('data').innerHTML = body
+                }
+        function refreshPage(){
+            window.location.reload();
+        } 
+    </script>
+  </body>
+</html>
